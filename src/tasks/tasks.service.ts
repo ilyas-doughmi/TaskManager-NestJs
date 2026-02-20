@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { Task, TaskStatus } from './task.model';
 import { v4 as uuid } from 'uuid';
  
@@ -13,6 +13,10 @@ export class TasksService {
     
     public createTask(title:string, description:string): Task
     {
+        if(!title || !description)
+        {
+            throw new BadRequestException('You need to write something');
+        }
         const task: Task = {
             id: uuid(),
             title: title,
