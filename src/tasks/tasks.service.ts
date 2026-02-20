@@ -40,4 +40,14 @@ export class TasksService {
     {
         this.tasks = this.tasks.filter(task => task.id !== id);
     }
+
+    public updateTaskStatus(id:string,status: TaskStatus) :Task
+    {
+        const task = this.tasks.find(task=> task.id === id);
+        if(!task){
+            throw new NotFoundException('Task Not Found');
+        }
+        task.status = status;
+        return task;
+    }
 }
