@@ -25,5 +25,11 @@ export class TasksController {
         return this.tasksService.getTaskById(id);
     }
     
+    @Post('/delete')
+    deleteTask(
+        @Body('id') id:string,
+    ){
+        this.tasksService.deleteTask(id);
+    }
 
 }
