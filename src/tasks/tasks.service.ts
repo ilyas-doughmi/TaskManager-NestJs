@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { Task, TaskStatus } from './task.model';
 import { v4 as uuid } from 'uuid';
  
@@ -24,6 +24,15 @@ export class TasksService {
             status : TaskStatus.OPEN,
         }
         this.tasks.push(task);
+        return task;
+    }
+
+    public getTaskById(id:string) : Task
+    {
+        const task = this.tasks.find(task => task.id === id);
+        if(!task){
+            throw new NotFoundException('No Task Found');
+        }
         return task;
     }
 }
